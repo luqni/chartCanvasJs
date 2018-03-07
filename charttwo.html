@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript">
+window.onload = function () {
+    var chart = new CanvasJS.Chart("chartContainer");
+
+    chart.options.axisY = { prefix: "$", suffix: "K" };
+    chart.options.title = { text: "Fruits sold in First & Second Quarter" };
+
+    var series1 = { //dataSeries - first quarter
+        type: "column",
+        name: "First Quarter",
+        showInLegend: true
+    };
+
+    var series2 = { //dataSeries - second quarter
+        type: "column",
+        name: "Second Quarter",
+        showInLegend: true
+    };
+
+    chart.options.data = [];
+    chart.options.data.push(series1);
+    chart.options.data.push(series2);
+
+
+    series1.dataPoints = [
+            { label: "banana", y: 18 },
+            { label: "orange", y: 29 },
+            { label: "apple", y: 40 },
+            { label: "mango", y: 34 },
+            { label: "grape", y: 24 }
+    ];
+
+    series2.dataPoints = [
+        { label: "banana", y: 23 },
+        { label: "orange", y: 33 },
+        { label: "apple", y: 48 },
+        { label: "mango", y: 37 },
+        { label: "grape", y: 20 }
+    ];
+
+    chart.render();
+}
+</script>
+<script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+</head>
+
+<body>
+    <div id="chartContainer" style="height: 300px; width: 100%;">
+    </div>
+</body>
+</html>
