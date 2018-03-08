@@ -27,22 +27,25 @@ Here are the steps: </br>
     });
     chart.render();
 
+***********************************************************************
 </br>
 <h2>Step2:</h2>
 <p>Append images to the Div element with class “canvasjs-chart-container”. This is a div created dynamically by CanvasJS inside the chartContainer created in Step 1. It holds all the Chart elements including canvas, tooltip, buttons etc.</p>
 </br>
 
+************************ this code *********************************** 
 
     $('img').attr('src', url)
             .attr("class", label)
             .css({"display": "none"})
             .appendTo($('#chartContainer>.canvasjs-chart-container'));
-
+***********************************************************************
 </br>
 <h2>Step3:</h2>
 <p>Get pixel co-ordinates where the images have to be placed using convertValueToPixel method. Once you have co-ordinates, images can be positioned relative to the div.</p>
 </br>
 
+************************ this code *********************************** 
 
     imageBottom = chart.axisX[0].bounds.y1;
     imageCenter = chart.axisX[0].convertValueToPixel(chart.data[0].dataPoints[0].x);
