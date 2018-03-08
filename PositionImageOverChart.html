@@ -1,0 +1,86 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+<style>
+img{
+pointer-events: none;
+}
+</style>
+  <script type="text/javascript" src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>  
+<script type="text/javascript" src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
+<script type="text/javascript">
+window.onload = function () {
+   var chart = new CanvasJS.Chart("chartContainer", {
+    theme: "theme2",//theme1
+    title:{
+      text: "Position Image over Chart"              
+    },
+    data: [              
+      {			
+        type: "column",
+        dataPoints: [
+          { label: "apple",  y: 14  },
+          { label: "orange", y: 20  },
+          { label: "banana", y: 25  },
+          { label: "mango",  y: 30  },
+          { label: "grape",  y: 28  }
+        ]
+      }
+    ]
+  });
+  chart.render();
+  
+  var images = [];
+  var fruits= [];
+  
+  images.push({url: "https://canvasjs.com/wp-content/uploads/images/gallery/gallery-overview/apple.png"});
+  images.push({url: "https://canvasjs.com/wp-content/uploads/images/gallery/gallery-overview/orange.png"});
+  images.push({url: "https://canvasjs.com/wp-content/uploads/images/gallery/gallery-overview/banana.png"});
+  images.push({url: "https://canvasjs.com/wp-content/uploads/images/gallery/gallery-overview/mango.png"});
+  images.push({url: "https://canvasjs.com/wp-content/uploads/images/gallery/gallery-overview/grape.png"});
+
+  addImages(chart);
+
+  function addImages(chart){
+    for(var i = 0; i < chart.data[0].dataPoints.length; i++){
+      var label = chart.data[0].dataPoints[i].label;
+      
+      if(label){
+        fruits.push( $("<img>").attr("src", images[i].url)
+                    .attr("class", label)
+                    .css("display", "none")
+                    .appendTo($("#chartContainer>.canvasjs-chart-container"))
+                   );        
+      }
+      
+      positionImage(fruits[i], i);
+    }    
+  }
+  
+  function positionImage(fruit, index){ 
+    var imageBottom = chart.axisX[0].bounds.y1;     
+    var imageCenter = chart.axisX[0].convertValueToPixel(chart.data[0].dataPoints[index].x);
+    
+    fruit.width(chart.dataPointWidth * .5);
+    fruit.height(chart.dataPointWidth * .42);
+    fruit.css({"position": "absolute", 
+               "display": "block",
+               "top": imageBottom  - fruit.height(),
+               "left": imageCenter - fruit.width()/2
+              });
+    chart.render();
+  }
+  
+  $( window ).resize(function() {
+    for(var i = 0; i < chart.data[0].dataPoints.length; i++){
+    	positionImage(fruits[i], i);
+    }
+  }); 
+}
+</script>	
+</head>
+<body>
+	<div id="chartContainer" style="height: 300px; width: 100%;"></div>
+</body>
+</html>
